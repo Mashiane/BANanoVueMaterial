@@ -7,6 +7,6 @@ ModuleBreakpoints2=
 ModuleClosedNodes0=
 ModuleClosedNodes1=
 ModuleClosedNodes2=
-NavigationStack=Main,Process_Globals,14,1,Main,AppStart,27,0,Main,Application_Error,57,0,Main,BANano_Ready,63,0,pgIndex,Init,34,6,pgLogin,Process_Globals,4,0,pgLogin,Code,27,6,pgLogin,btnOkSignIn_click,52,6,pgLogin,btnCancelLogin_click,42,3
+NavigationStack=Main,Process_Globals,14,1,Main,AppStart,27,0,Main,Application_Error,57,0,Main,BANano_Ready,63,0,pgLogin,btnCancelLogin_click,42,3,pgIndex,Init,6,6,pgLogin,Process_Globals,4,0,pgLogin,Code,8,6,pgLogin,btnOkSignIn_click,46,6
 SelectedBuild=0
 VisibleModules=1,2
