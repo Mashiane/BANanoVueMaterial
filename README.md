@@ -19,3 +19,9 @@ With BANano, one is able to code using VB like syntax using B4J from Anywhere So
 
 
 MD created with [Online Markdown Editor](https://mkdown.now.sh/)
+
+PS: You can learn how to use B4J from these [B4X Video Tutorials](https://www.b4x.com/etp.html)
+
+You can download free [B4X Booklets](https://www.b4x.com/android/forum/threads/b4x-documentation-booklets.88985/)
+
+[B4A](https://www.b4x.com/b4a.html) (Basic4Android) which with it you can develop native android apps using basic language is FREE!!
