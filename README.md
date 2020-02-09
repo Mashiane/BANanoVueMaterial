@@ -1,6 +1,6 @@
 # BANanoVueMaterial
 
-BANanoVueMaterial is the first VueJs based UX framework developed for the BANano transpiler. [VueMaterial link](https://vuematerial.io/) is a Material based framework for VueJS.
+BANanoVueMaterial is the first VueJs based UX framework developed for the BANano transpiler. [VueMaterial](https://vuematerial.io/) is a Material based framework for VueJS.
 
 With BANano, one is able to code using VB like syntax using B4J from Anywhere Software and the result is a PWA (Progressive Web App) in SPA (Single Page Application) format.
 
@@ -16,3 +16,6 @@ With BANano, one is able to code using VB like syntax using B4J from Anywhere So
 - Open and run the BVMDemo B4J app, see the structure of the source code and how to build UX.
 - I have written a very nice tutorial here on [BANano for Dummies by example](https://www.b4x.com/android/forum/threads/banano-for-dummies-by-example.108722/#content)
 - Join the B4X forum for more details.
+
+
+MD created with [Online Markdown Editor](https://mkdown.now.sh/)
