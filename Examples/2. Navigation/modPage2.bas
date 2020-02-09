@@ -19,7 +19,7 @@ Sub Code(vmx As BANanoVM)
 	'hide this container, will be made available when we need
 	cont.Hide
 	'create the grid for the container in the page
-	cont.AddRows(1).AddColumns2_6
+	cont.AddRows(1).AddColumns2x6
 	' create a H1 label
 	Dim lbl As VMLabel = vm.CreateLABEL("lbl").SetText("This is page 2!").SetH1
 	'create button

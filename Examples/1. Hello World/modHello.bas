@@ -27,8 +27,8 @@ Sub Code(vmx As BANanoVM)
 	cont.AddRows(1).AddColumns(1,12,4,4,4).AddColumns(1,12,8,8,8)
 	cont.AddRows(1).AddColumns(1,12,5,5,5).AddColumns(1,12,7,7,7)
 	cont.AddRows(1).AddColumns(1,12,6,6,6).AddColumns(1,12,6,6,6)
-	cont.AddRows(1).AddColumns3_4
-	cont.AddRows(1).AddColumns4_3
+	cont.AddRows(1).AddColumns3x4
+	cont.AddRows(1).AddColumns4x3
 	'
 	Dim rCnt As Int
 	
