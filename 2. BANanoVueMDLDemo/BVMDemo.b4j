@@ -1,0 +1,116 @@
+﻿AppType=JavaFX
+Build1=Default,b4j.example
+File1=config.php
+File2=dbase.txt
+File3=host.txt
+File4=sponge.png
+FileGroup1=Default Group
+FileGroup2=Default Group
+FileGroup3=Default Group
+FileGroup4=Default Group
+Group=Default Group
+Library1=jcore
+Library2=jfx
+Library3=banano
+Library4=bananopostprocessor
+Library5=bananovuematerial
+Module1=modAvatar
+Module10=modEmptyState
+Module11=modFile
+Module12=modIcon
+Module13=modList
+Module14=modListView
+Module15=modMenu
+Module16=modProgress
+Module17=modRadio
+Module18=modSelect
+Module19=modSkeleton
+Module2=modBadge
+Module20=modSnackBar
+Module21=modSpeedDial
+Module22=modSpinner
+Module23=modSteppers
+Module24=modSwitch
+Module25=modTable
+Module26=modTabs
+Module27=modTextArea
+Module28=modTextBox
+Module29=modTimePIcker
+Module3=modBottomBar
+Module30=modToolbar
+Module31=modTypography
+Module32=pgIndex
+Module4=modButtons
+Module5=modChartKick
+Module6=modCheckBox
+Module7=modChips
+Module8=modDatePicker
+Module9=modDialog
+NumberOfFiles=4
+NumberOfLibraries=5
+NumberOfModules=32
+Version=8.1
+@EndOfDesignText@
+#Region Project Attributes 
+	#MergeLibraries: True
+	#LibraryAuthor: Anele Mashy Mbanga
+	#LibraryVersion: 0.01
+#End Region
+
+Sub Process_Globals
+	Public BANano As BANano 'ignore
+	Public AppName As String = "bvmdemo"
+	Public Dbase As String
+	Private Publish As String
+	Private BP As BANanoPostProcessor
+	Public ServerIP As String
+End Sub
+
+Sub AppStart (Form1 As Form, Args() As String)
+	'post processor
+	BP.Initialize
+	BP.RedirectOutput(File.DirApp,"log.txt")
+	Publish = "C:\laragon\www"
+	ServerIP = BP.FileReadString(File.DirAssets, "host.txt")
+	Dbase = BP.FileReadString(File.DirAssets, "dbase.txt")
+	'
+	Dim Version As Long = DateTime.now
+	Dim appFile As String = $"app${Version}.js"$
+	
+	'initialize banano for first use
+	BANano.Initialize("BANano", AppName, Version)
+	BANano.HTML_NAME = "index.html"
+	BANano.Header.Title = AppName
+	BANano.JAVASCRIPT_NAME = appFile
+	BANano.TranspilerOptions.UseServiceWorker = False
+	BANano.transpileroptions.MergeAllCSSFiles = True
+	BANano.transpileroptions.MergeAllJavascriptFiles = True
+	'
+	'php
+	'set php settings
+	BANano.PHP_NAME = $"${AppName}.php"$
+	BANano.PHPHost = $"http://${ServerIP}/${AppName}/"$
+	BANano.PHPAddHeader("Access-Control-Allow-Origin: *")
+	
+	BANano.Build(Publish)
+	BP.OpenLog(File.DirApp, "log.txt")
+	
+	BP.PublishPath = Publish
+	BP.ShortName = AppName
+	BP.AssetsPath = BANano.ASSETS_FOLDER
+	BP.ScriptsPath = BANano.SCRIPTS_FOLDER
+	BP.StylesPath = BANano.STYLES_FOLDER
+	BP.ScriptFile = BANano.JAVASCRIPT_NAME
+	BP.UnzipFonts
+	BP.Open(True)
+	ExitApplication
+End Sub
+
+'Return true to allow the default exceptions handler to handle the uncaught exception.
+Sub Application_Error (Error As Exception, StackTrace As String) As Boolean
+	Return True
+End Sub
+
+Sub BANano_Ready
+	pgIndex.Init
+End Sub
