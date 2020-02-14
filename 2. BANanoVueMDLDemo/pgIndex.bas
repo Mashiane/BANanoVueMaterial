@@ -63,6 +63,8 @@ Sub Init
 	vm.AddPage(modBottomBar.name, modBottomBar)
 	vm.AddPage(modTimePIcker.name, modTimePIcker)
 	vm.AddPage(modGMap.name, modGMap)
+	vm.AddPage(modChartKick.name, modChartKick)
+	
 
 	'build the page
 	vm.ux
@@ -113,7 +115,13 @@ Sub BuildDrawer
 	'
 	vm.Drawer.AddItem("plugins","","Plugins")
 	vm.drawer.AddSubItem("plugins", "gmap", "","Google Map")
-	
+	vm.drawer.AddSubItem("plugins", "chartkick", "","ChartKick")
+End Sub
+
+
+Sub chartkick_click(e As BANanoEvent)
+	vm.NavBar.UpdateTitle("BVMDemo - Chart Kick")
+	vm.ShowPage(modChartKick.name)
 End Sub
 
 Sub gmap_click(e As BANanoEvent)
