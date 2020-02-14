@@ -62,6 +62,7 @@ Sub Init
 	vm.AddPage(modTable.name, modTable)
 	vm.AddPage(modBottomBar.name, modBottomBar)
 	vm.AddPage(modTimePIcker.name, modTimePIcker)
+	vm.AddPage(modGMap.name, modGMap)
 
 	'build the page
 	vm.ux
@@ -91,7 +92,7 @@ Sub BuildDrawer
 	vm.drawer.AddSubItem("ui", "steppers", "","Steppers")
 	vm.drawer.AddSubItem("ui", "tabs", "","Tabs")
 	vm.drawer.AddSubItem("ui", "toolbar", "","Toolbar")
-	vm.drawer.AddSubItem("ui", "table", "table_chart","Table")
+	vm.drawer.AddSubItem("ui", "table", "","Table")
 	vm.drawer.AddSubItem("ui", "bottombar", "","Bottom Bar")
 	'
 	'vm.Drawer.AddItem("listx","","List")
@@ -109,7 +110,17 @@ Sub BuildDrawer
 	vm.drawer.AddSubItem("forms", "radio", "radio_button_checked","Radio")
 	vm.drawer.AddSubItem("forms", "combo", "arrow_drop_down","Select")
 	vm.drawer.AddSubItem("forms", "switchbox", "toggle_off","Switch")
+	'
+	vm.Drawer.AddItem("plugins","","Plugins")
+	vm.drawer.AddSubItem("plugins", "gmap", "","Google Map")
+	
 End Sub
+
+Sub gmap_click(e As BANanoEvent)
+	vm.NavBar.UpdateTitle("BVMDemo - Google Map")
+	vm.ShowPage(modGMap.name)
+End Sub
+
 
 Sub timepicker_click(e As BANanoEvent)
 	vm.NavBar.UpdateTitle("BVMDemo - TimePicker")
