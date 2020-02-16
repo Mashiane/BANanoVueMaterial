@@ -26,6 +26,7 @@ Sub Code(vmx As BANanoVM)
 	"2013-02-15":3,"2013-02-16":8,"2013-02-17":6,"2013-02-18":6,"2013-02-19":12,"2013-02-20":5,"2013-02-21":5, _
 	"2013-02-22":3,"2013-02-23":1,"2013-02-24":10,"2013-02-25":1,"2013-02-26":3,"2013-02-27":2, _
 	"2013-02-28":3,"2013-03-01":2,"2013-03-02":8))
+	provChart.SetTitle("My Chart")
 	cont.AddComponent(1,1, provChart.tostring)
 	'
 	Dim pie As VMChartKick = vm.CreateChartKick("pie", Me).SetPieChart.SetStyleSingle("height", "300px")
