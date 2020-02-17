@@ -52,7 +52,7 @@ Sub AppStart (Form1 As Form, Args() As String)
 	BANano.JAVASCRIPT_NAME = appFile
 	BANano.TranspilerOptions.UseServiceWorker = False
 	BANano.transpileroptions.MergeAllCSSFiles = True
-	BANano.transpileroptions.MergeAllJavascriptFiles = True
+	BANano.transpileroptions.MergeAllJavascriptFiles = False
 	'
 	'php
 	'set php settings

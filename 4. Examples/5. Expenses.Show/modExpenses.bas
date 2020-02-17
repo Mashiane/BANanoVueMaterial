@@ -32,9 +32,8 @@ Sub Code
 	expenses.AddColumn("expense_description","Description")  
 	expenses.AddColumn("expense_amount","Amount")
 	expenses.AddEditTrash
-	expenses.autoLoad = True
+	expenses.AddClone
 	expenses.SetMoneyColumns(Array("expense_amount"))
-	expenses.SetColumnsHidden(Array("id"))
 	expenses.SetDataSource(Array())
 	cont.AddComponent(1,1, expenses.tostring)
 	
@@ -128,9 +127,12 @@ End Sub
 'load all existing expenses
 Sub Refresh
 	vm.pagepause
+	Dim qry As String = "select expenses.id, expenses.expense_date, expenses.expense_description, expenses.expense_amount, expensecategories.text as expense_category,"
+	qry = qry & "expensetypes.text As expense_type from expenses, expensecategories, expensetypes where expenses.expense_category = expensecategories.id and expenses.expense_type = "
+	qry = qry & "expensetypes.id order by id"
 	Dim dbsql As BANanoMySQL
 	dbsql.Initialize(Main.dbase, "expenses", "id")
-	dbsql.SelectAll(Array("*"), Array("id"))
+	dbsql.Execute(qry)
 	dbsql.json = BANano.CallInlinePHPWait(dbsql.methodname, dbsql.Build)
 	dbsql.FromJSON
 	If dbsql.OK Then
@@ -140,4 +142,67 @@ Sub Refresh
 		Log("modExpenses.Refresh: Error - " & dbsql.error)
 	End If
 	vm.pageresume
+End Sub
+
+Sub expensetable_edit(e As BANanoEvent)
+	'get the record corresponding to the row
+	Dim rec As Map = expenses.GetRecordFromEvent(e)
+	Dim sid As String = rec.GetDefault("id","")
+	If sid = "" Then Return
+	'turn the mode to edit
+	Mode = "E"
+	Dim dbsql As BANanoMySQL
+	dbsql.Initialize(Main.dbase, "expenses", "id")
+	dbsql.Read(sid)
+	dbsql.json = BANano.CallInlinePHPWait(dbsql.methodname, dbsql.Build)
+	dbsql.FromJSON
+	If dbsql.OK Then
+		Dim rec As Map = dbsql.result.get(0)
+		vm.CallMethod("LoadTypes")
+		vm.CallMethod("LoadCategories")
+		mdlExpenses.Container.SetDefaults
+		mdlExpenses.SetTitle("Edit Expense")
+		vm.SetState(rec)
+		vm.ShowDialog("mdlExpenses")
+	Else
+		Log("modExpenses.expensetable_edit: Error - " & dbsql.error)
+	End If
+End Sub
+
+Sub expensetable_clone(e As BANanoEvent)
+	'get the record corresponding to the row
+	Dim rec As Map = expenses.GetRecordFromEvent(e)
+	Dim sid As String = rec.GetDefault("id","")
+	If sid = "" Then Return
+	'turn the mode to edit
+	Mode = "A"
+	Dim dbsql As BANanoMySQL
+	dbsql.Initialize(Main.dbase, "expenses", "id")
+	dbsql.Read(sid)
+	dbsql.json = BANano.CallInlinePHPWait(dbsql.methodname, dbsql.Build)
+	dbsql.FromJSON
+	If dbsql.OK Then
+		Dim rec As Map = dbsql.result.get(0)
+		rec.put("id", Null)
+		vm.CallMethod("LoadTypes")
+		vm.CallMethod("LoadCategories")
+		mdlExpenses.Container.SetDefaults
+		mdlExpenses.SetTitle("New Expense")
+		vm.SetState(rec)
+		vm.ShowDialog("mdlExpenses")
+	Else
+		Log("modExpenses.expensetable_clone: Error - " & dbsql.error)
+	End If
+End Sub
+
+Sub expensetable_delete(e As BANanoEvent)
+	'get the record corresponding to the row
+	Dim rec As Map = expenses.GetRecordFromEvent(e)
+	Dim sid As String = rec.GetDefault("id","")
+	If sid = "" Then Return
+	'save the category id to delete
+	vm.SetStateSingle("expenseid", sid)
+	'indicate confirm dialog
+	vm.ShowConfirm("delete_expense", $"Confirm Delete: ${sid}"$, _
+	"Are you sure that you want to delete this expense. You will not be able to undo your actions. Continue?","Ok","Cancel")
 End Sub

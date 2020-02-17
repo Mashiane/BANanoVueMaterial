@@ -145,6 +145,7 @@ Sub ShowDashboard
 	vm.CallMethod("LoadCategories")
 	vm.NavBar.SetTitle("Expenses.Show - Dashboard")
 	modDashboard.expcont.setdefaults
+	modDashboard.refresh
 	vm.showpage(modDashboard.name)
 End Sub	
 
@@ -190,6 +191,21 @@ Sub confirm_ok
 			Log("phIndex.confirm_ok.delete_category: Error - " & dbsql.error)
 			vm.ShowSnackBar(dbsql.error)
 		End If
-	End Select
-	
+	Case "delete_expense"
+		Dim sid As String = vm.getstate("expenseid", "")
+		If sid = "" Then Return
+		Dim dbsql As BANanoMySQL
+		dbsql.Initialize(Main.dbase, "expenses", "id")
+		dbsql.Delete(sid)
+		dbsql.json = BANano.CallInlinePHPWait(dbsql.methodname, dbsql.Build)
+		dbsql.FromJSON
+		If dbsql.OK Then
+			vm.ShowSnackBar("Expense deleted successfully!")
+			modExpenses.Refresh
+		Else
+			Log("phIndex.confirm_ok.delete_expense: Error - " & dbsql.error)
+			vm.ShowSnackBar(dbsql.error)
+		End If
+	End Select	
 End Sub
+
