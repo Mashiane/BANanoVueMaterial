@@ -19,6 +19,6 @@ ModuleClosedNodes3=
 ModuleClosedNodes4=
 ModuleClosedNodes5=
 ModuleClosedNodes6=
-NavigationStack=modExpenses,Refresh,123,6,modExpenses,expensetable_edit,140,0,modDashboard,AddBudgetByCategoryCurrentMonth,136,6,modDashboard,AddExpense,40,0,modDashboard,AddBudgetCurrentMonth,121,6,modDashboard,Process_Globals,9,6,modDashboard,AddExpenditureByMonthCurrentYear,155,2,modDashboard,AddExpenditureByCategoryCurrentYear,153,4,modDashboard,Code,35,6,modDashboard,Refresh,289,6
+NavigationStack=modExpenses,expensetable_edit,140,0,modDashboard,AddBudgetByCategoryCurrentMonth,136,6,modDashboard,AddBudgetCurrentMonth,121,6,modDashboard,Process_Globals,9,6,modDashboard,AddExpenditureByMonthCurrentYear,155,2,modDashboard,AddExpenditureByCategoryCurrentYear,153,4,modDashboard,Code,35,6,modDashboard,Refresh,289,6,modExpenses,Code,53,3,modDashboard,AddExpense,41,2
 SelectedBuild=0
 VisibleModules=3,6,1

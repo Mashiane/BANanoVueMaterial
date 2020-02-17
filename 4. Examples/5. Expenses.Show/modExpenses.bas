@@ -47,7 +47,7 @@ Sub Code
 	mdlExpenses.AddOK("btnSaveExpense", "Save")
 	'
 	Dim expense_id As VMInputControl = mdlExpenses.Container.NewText("id","#","",False,"",0,"","",0).SetVisible(False).SetInt
-	Dim expense_date As VMInputControl = mdlExpenses.Container.NewDatePicker("expense_date", "Date", True, False, True, "",0)
+	Dim expense_date As VMInputControl = mdlExpenses.Container.NewDatePicker("expense_date", "Date", True, False, True, "","","The expense date should be specified!",0)
 	Dim expense_category As VMInputControl = mdlExpenses.Container.NewSelect("expense_category","Category",True,False,"","categories","id","text","","The category should be specified!",0).SetInt
 	Dim expense_type As VMInputControl = mdlExpenses.Container.NewSelect("expense_type","Type",True,False,"","types","id","text","","The type should be specified!",0).SetInt
 	Dim expense_amount As VMInputControl = mdlExpenses.Container.NewTel("expense_amount", "Amount", "", True, "", "","The amount should be specified!",0).SetDouble

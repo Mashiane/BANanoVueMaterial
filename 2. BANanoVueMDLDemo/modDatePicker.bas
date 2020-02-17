@@ -20,7 +20,7 @@ Sub Code(vmx As BANanoVM)
 	cont.Hide
 	'create 2 columns each spanning 12 columns
 	cont.addrows(2).AddColumns12
-	vm.CreateDatePicker("dp1",Me).SetLabel("Date Picker").SetVModel("dp1").AddToContainer(cont,1,1)   
+	vm.CreateDatePicker("dp1",Me).SetLabel("Date Picker").SetVModel("dp1").SetHelperText("Date X").SetErrorText("Enter Date").AddToContainer(cont,1,1)   
 	vm.CreateDatePicker("dp2",Me).SetLabel("Immediately").SetImmediately(True).SetVModel("dp2").AddToContainer(cont,1,1)
 	vm.CreateDatePicker("dp3",Me).SetLabel("On Open/Close").SetVModel("dp3").AddToContainer(cont,1,1)
 	
@@ -31,6 +31,7 @@ Sub Code(vmx As BANanoVM)
 	cont.AddComponent(1,1, vm.BR)
 	vm.CreateButton("btn",Me).SetText("Get Date").SetRaised(True).AddToContainer(cont, 1, 1)	
 	vm.Container.AddComponent(1,1,cont.tostring)
+	vm.showerror("dp1")
 End Sub
 
 Sub d3_opened(e As BANanoEvent)

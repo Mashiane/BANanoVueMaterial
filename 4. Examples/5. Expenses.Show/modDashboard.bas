@@ -57,7 +57,7 @@ Sub AddExpense As VMContainer
 	expense_id.SetVisible(False).SetInt
 	expcont.AddControl(expense_id, 1, 1, 0, 0, 0, 0, 12, 12, 12, 12)
 	'
-	Dim expense_date As VMInputControl = expcont.NewDatePicker("expense_date", "Date", True, False, True, "",0)
+	Dim expense_date As VMInputControl = expcont.NewDatePicker("expense_date", "Date", True, False, True, "","","The expense date should be specified!", 0)
 	expcont.AddControl(expense_date, 2, 1, 0, 0, 0, 0, 12, 6, 6, 6)
 	'
 	Dim expense_category As VMInputControl = expcont.NewSelect("expense_category","Category",True,False,"","categories","id","text","","The category should be specified!",0)
