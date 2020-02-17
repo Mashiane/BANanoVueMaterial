@@ -64,7 +64,7 @@ Sub Init
 	vm.AddPage(modTimePIcker.name, modTimePIcker)
 	vm.AddPage(modGMap.name, modGMap)
 	vm.AddPage(modChartKick.name, modChartKick)
-	
+	vm.AddPage(modGijgoTable.name, modGijgoTable)
 
 	'build the page
 	vm.ux
@@ -116,8 +116,14 @@ Sub BuildDrawer
 	vm.Drawer.AddItem("plugins","","Plugins")
 	vm.drawer.AddSubItem("plugins", "gmap", "","Google Map")
 	vm.drawer.AddSubItem("plugins", "chartkick", "","ChartKick")
+	vm.drawer.AddSubItem("plugins", "gijgotable", "","Gijgo Table")
 End Sub
 
+Sub gijgotable_click(e As BANanoEvent)
+	vm.NavBar.UpdateTitle("BVMDemo - Gijgo Table")
+	vm.ShowPage(modGijgoTable.name)
+	modGijgoTable.refresh
+End Sub
 
 Sub chartkick_click(e As BANanoEvent)
 	vm.NavBar.UpdateTitle("BVMDemo - Chart Kick")
@@ -280,4 +286,13 @@ End Sub
 Sub back_click(e As BANanoEvent)
 	'vm.Drawer.Toggle
 	'vm.NavBar.ToggleMenu
+End Sub
+
+Sub confirm_ok(e As BANanoEvent)
+	Dim sprocess As String = vm.getconfirm
+	Select Case sprocess
+	Case "delete_people"
+		Dim pid As String = vm.getstate("peopleid","")
+		vm.ShowSnackBar("Person to delete id: " & pid)		
+	End Select
 End Sub
