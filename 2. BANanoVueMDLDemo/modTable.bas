@@ -21,14 +21,18 @@ Sub Code(vmx As BANanoVM)
 	cont.Hide
 	'create 2 columns each spanning 12 columns
 	cont.addrows(2).AddColumns12
-	
+	Dim options As List
+	options.initialize
+	options.Add(Array("Anele","Mbanga","doing","BANanoVueMaterial"))
+	'
 	vm.setstatelist("users", Array())
 	vm.setstatelist("searched", Array())
 	vm.SetCreated(Me, "setSearched")
 	Dim tablex As VMTable = vm.CreateTable("tablex", Me).SetVModel("searched").SetCard(True)
 	tablex.ToolBar.SetTitle("Users")
 	'add a search input and save result to mysearch vmodel
-	tablex.ToolBar.AddSearch("search", "Search...", "mysearch")
+	tablex.ToolBar.AddSearch("msearch", "Search...", "mysearch", "300px", options)
+	tablex.ToolBar.SetPrimary(True)
 	'set sort field and sort order
 	tablex.SetSort("name").SetSortOrderAsc(True)
 	'tablex.SetFixedHeaders(True)

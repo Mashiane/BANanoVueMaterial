@@ -46,6 +46,11 @@ Sub Code(vmx As BANanoVM)
 	img.AddMenuItem("img2","phone","Call Work")
 	img.AddMenuItem("img3","phone","Call Spouse")
 	tbl3.addmenu(img)
+	Dim options As List
+	options.initialize
+	options.Add(Array("Anele","Mbanga","doing","BANanoVueMaterial"))
+	'
+	tbl3.AddSearch("msearch", "Search...", "mysearch", "300px", options)
 	tbl3.AddToContainer(cont, 1, 1)
 	'
 	Dim tbl4 As VMToolBar = vm.CreateToolbar("tbl4", Me).SetTitle("Accent").SetAccent(True).SetMarginAll("10px")

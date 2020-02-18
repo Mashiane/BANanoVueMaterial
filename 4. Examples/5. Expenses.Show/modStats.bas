@@ -18,7 +18,8 @@ Sub Code
 	'hide this container
 	cont.Hide
 	'create 1 columns each spanning 12 columns
-	cont.AddRows(1).AddColumns12
+	cont.AddRows(1).AddColumns4x3
+	'
 	
 	'add container to the page content
 	vm.AddContainer(cont)

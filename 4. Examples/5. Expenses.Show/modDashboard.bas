@@ -14,6 +14,10 @@ Sub Process_Globals
 	Public budgetByCat As VMChartKick
 	Public expByCat As VMChartKick
 	Public expByMonth As VMChartKick
+	Private allspent As VMInfoBox
+	Private mostspentby As VMInfoBox
+	Private mostspenton As VMInfoBox
+	Private spentthisyear As VMInfoBox
 End Sub
 
 Sub Code
@@ -24,6 +28,7 @@ Sub Code
 	'hide this container
 	cont.Hide
 	'create 1 columns each spanning 12 columns
+	cont.AddRows(1).AddColumns4x3
 	cont.AddRows(1).AddColumns2x6
 	cont.AddRows(1).AddColumns12
 	cont.AddRows(1).AddColumns2x6
@@ -33,12 +38,44 @@ Sub Code
 	Dim bccm As VMContainer = AddBudgetByCategoryCurrentMonth
 	Dim bccy As VMContainer = AddExpenditureByCategoryCurrentYear
 	Dim ecy As VMContainer = AddExpenditureByMonthCurrentYear
+	'
+	allspent = vm.CreateInfoBox("allspent", Me).SetIcon("attach_money")
+	allspent.SetFrom("0")
+	allspent.SetTo("0")
+	allspent.SetText("Overall Spent")
+	allspent.SetIconBackgroundColor(vm.vue.Colors.green)
+	allspent.SetHoverExpandEffect(True)
+	cont.AddComponent(1,1,allspent.tostring)
+	'
+	mostspentby = vm.CreateInfoBox("mostspentby", Me).SetIcon("insert_chart")
+	mostspentby.SetFrom("0")
+	mostspentby.SetTo("0")
+	mostspentby.SetText("Most Spent By")
+	mostspentby.SetIconBackgroundColor(vm.vue.Colors.Orange)
+	mostspentby.SetHoverExpandEffect(True)
+	cont.AddComponent(1,2,mostspentby.tostring)
+	'
+	mostspenton = vm.CreateInfoBox("mostspenton", Me).SetIcon("insert_chart")
+	mostspenton.SetFrom("0")
+	mostspenton.SetTo("0")
+	mostspenton.SetText("Most Spent On")
+	mostspenton.SetIconBackgroundColor(vm.vue.Colors.blue)
+	mostspenton.SetHoverExpandEffect(True)
+	cont.AddComponent(1,3,mostspenton.tostring)
+	'
+	spentthisyear = vm.CreateInfoBox("spentthisyear", Me).SetIcon("attach_money")
+	spentthisyear.SetFrom("0")
+	spentthisyear.SetTo("0")
+	spentthisyear.SetText("Spent This Year")
+	spentthisyear.SetIconBackgroundColor(vm.vue.Colors.pink)
+	spentthisyear.SetHoverExpandEffect(True)
+	cont.AddComponent(1,4,spentthisyear.tostring)
 	
-	cont.AddComponent(1, 1, ec.tostring)
-	cont.AddComponent(1, 2, bcm.tostring)
-	cont.AddComponent(2, 1, bccm.tostring)
-	cont.AddComponent(3, 1, ecy.tostring)
-	cont.AddComponent(3, 2, bccy.tostring)
+	cont.AddComponent(2, 1, ec.tostring)
+	cont.AddComponent(2, 2, bcm.tostring)
+	cont.AddComponent(3, 1, bccm.tostring)
+	cont.AddComponent(4, 1, ecy.tostring)
+	cont.AddComponent(4, 2, bccy.tostring)
 	'
 	
 	'add container to the page content
@@ -177,6 +214,82 @@ Sub AddExpenditureByMonthCurrentYear As VMContainer
 	Return bcont
 End Sub
 
+Sub RefreshInfoBoxes(cYear As String)
+	allspent.SetTo("0")
+	mostspentby.SetTo("0")
+	mostspentby.SetText("Most Spent By")
+	
+	mostspenton.SetTo("0")
+	mostspenton.SetText("Most Spent On")
+	
+	spentthisyear.SetTo("0")
+	'
+	Dim dball As BANanoMySQL
+	dball.Initialize(Main.dbase, "expenses", "id")
+	dball.Execute("select sum(expense_amount) as amount from expenses")
+	dball.json = BANano.CallInlinePHPWait(dball.methodname, dball.Build)
+	dball.FromJSON
+	If dball.OK Then
+		Dim rec As Map = dball.result.Get(0)
+		Dim samount As String = rec.Get("amount")
+		allspent.SetTo(samount)
+		allspent.refresh
+	End If
+	'
+	'most spent on
+	Dim qry1 As String = "select sum(expenses.expense_amount) as amount, expensecategories.text as expense_category from expenses, "
+	qry1 = qry1 & "expensecategories where expenses.expense_category = expensecategories.id group by expensecategories.text order "
+	qry1= qry1 & "by sum(expenses.expense_amount) desc"
+	Dim dbmoston As BANanoMySQL
+	dbmoston.Initialize(Main.dbase, "expenses", "id")
+	dbmoston.Execute(qry1)
+	dbmoston.json = BANano.CallInlinePHPWait(dbmoston.methodname, dbmoston.Build)
+	dbmoston.FromJSON
+	If dbmoston.OK Then
+		Dim rec As Map = dbmoston.result.Get(0)
+		Dim samount As String = rec.Get("amount")
+		Dim scat As String = rec.get("expense_category")
+		'
+		mostspenton.SetTo(samount)
+		mostspenton.SetText(scat)
+		mostspenton.refresh
+	End If
+	'
+	'most spent by
+	Dim qry2 As String = "select sum(expenses.expense_amount) as amount, expensetypes.text as expense_type from expenses, "
+	qry2 = qry2 & "expensetypes where expenses.expense_type = expensetypes.id group by expensetypes.text order "
+	qry2= qry2 & "by sum(expenses.expense_amount) desc"
+	Dim dbmostby As BANanoMySQL
+	dbmostby.Initialize(Main.dbase, "expenses", "id")
+	dbmostby.Execute(qry2)
+	dbmostby.json = BANano.CallInlinePHPWait(dbmostby.methodname, dbmostby.Build)
+	dbmostby.FromJSON
+	If dbmostby.OK Then
+		Dim rec As Map = dbmostby.result.Get(0)
+		Dim samount As String = rec.Get("amount")
+		Dim scat As String = rec.get("expense_type")
+		'
+		mostspentby.SetTo(samount)
+		mostspentby.SetText(scat)
+		mostspentby.refresh
+	End If
+	'
+	'spent this year
+	Dim qry3 As String = $"select sum(expense_amount) as amount from expenses where year(expense_date) = '${cYear}'"$
+	Dim dbthisyear As BANanoMySQL
+	dbthisyear.Initialize(Main.dbase, "expenses", "id")
+	dbthisyear.Execute(qry3)
+	dbthisyear.json = BANano.CallInlinePHPWait(dbthisyear.methodname, dbthisyear.Build)
+	dbthisyear.FromJSON
+	If dbthisyear.OK Then
+		Dim rec As Map = dbthisyear.result.Get(0)
+		Dim samount As String = rec.Get("amount")
+		'
+		spentthisyear.SetTo(samount)
+		spentthisyear.refresh
+	End If
+End Sub
+
 Sub Refresh
 	vm.pagepause
 	bcmpie.Reset
@@ -194,6 +307,8 @@ Sub Refresh
 	Dim cYear As String = vm.YearNow
 	Dim cMonth As String = vm.monthnow
 	'
+	RefreshInfoBoxes(cYear)
+	
 	'budget per month
 	Dim dbsql As BANanoMySQL
 	dbsql.Initialize(Main.dbase, "expenses", "id")

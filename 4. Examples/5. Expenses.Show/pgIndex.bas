@@ -145,8 +145,8 @@ Sub ShowDashboard
 	vm.CallMethod("LoadCategories")
 	vm.NavBar.SetTitle("Expenses.Show - Dashboard")
 	modDashboard.expcont.setdefaults
-	modDashboard.refresh
 	vm.showpage(modDashboard.name)
+	modDashboard.refresh
 End Sub	
 
 Sub back_click(e As BANanoEvent)

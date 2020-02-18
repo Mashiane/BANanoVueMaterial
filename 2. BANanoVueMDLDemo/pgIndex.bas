@@ -65,7 +65,8 @@ Sub Init
 	vm.AddPage(modGMap.name, modGMap)
 	vm.AddPage(modChartKick.name, modChartKick)
 	vm.AddPage(modGijgoTable.name, modGijgoTable)
-
+	vm.AddPage(modAutoComplete.name, modAutoComplete)
+	vm.AddPage(modInfoBox.name, modInfoBox)
 	'build the page
 	vm.ux
 	'
@@ -78,6 +79,7 @@ End Sub
 
 Sub BuildDrawer
 	vm.Drawer.AddItem("ui","whatshot","UI Elements")
+	vm.drawer.AddSubItem("ui", "autocompletex", "","Auto Complete")
 	vm.drawer.AddSubItem("ui", "avatar", "person_outline","Avatar")
 	vm.drawer.AddSubItem("ui", "badge", "","Badge")
 	vm.drawer.AddSubItem("ui", "listview", "","ListView")
@@ -117,6 +119,17 @@ Sub BuildDrawer
 	vm.drawer.AddSubItem("plugins", "gmap", "","Google Map")
 	vm.drawer.AddSubItem("plugins", "chartkick", "","ChartKick")
 	vm.drawer.AddSubItem("plugins", "gijgotable", "","Gijgo Table")
+	vm.drawer.AddSubItem("plugins", "infobox", "","InfoBox")
+End Sub
+
+Sub infobox_click(e As BANanoEvent)
+	vm.NavBar.UpdateTitle("BVMDemo - Info Box")
+	vm.ShowPage(modInfoBox.name)
+End Sub
+
+Sub autocompletex_click(e As BANanoEvent)
+	vm.NavBar.UpdateTitle("BVMDemo - Auto Complete")
+	vm.ShowPage(modAutoComplete.name)
 End Sub
 
 Sub gijgotable_click(e As BANanoEvent)
