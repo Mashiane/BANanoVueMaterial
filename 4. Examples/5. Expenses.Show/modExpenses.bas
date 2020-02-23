@@ -46,12 +46,12 @@ Sub Code
 	mdlExpenses.AddCancel("btnCancelExpense", "Cancel")
 	mdlExpenses.AddOK("btnSaveExpense", "Save")
 	'
-	Dim expense_id As VMInputControl = mdlExpenses.Container.NewText("id","#","",False,"",0,"","",0).SetVisible(False).SetInt
-	Dim expense_date As VMInputControl = mdlExpenses.Container.NewDatePicker("expense_date", "Date", True, False, True, "","","The expense date should be specified!",0)
-	Dim expense_category As VMInputControl = mdlExpenses.Container.NewSelect("expense_category","Category",True,False,"","categories","id","text","","The category should be specified!",0).SetInt
-	Dim expense_type As VMInputControl = mdlExpenses.Container.NewSelect("expense_type","Type",True,False,"","types","id","text","","The type should be specified!",0).SetInt
-	Dim expense_amount As VMInputControl = mdlExpenses.Container.NewTel("expense_amount", "Amount", "", True, "", "","The amount should be specified!",0).SetDouble
-	Dim expense_description As VMInputControl = mdlExpenses.Container.NewTextArea("expense_description", "Description", "", False, False, "",100, "","",0)
+	Dim expense_id As VMInputControl = vm.NewText("id","#","",False,"",0,"","",0).SetVisible(False).SetInt
+	Dim expense_date As VMInputControl = vm.NewDatePicker("expense_date", "Date", True, False, True, "","","The expense date should be specified!",0)
+	Dim expense_category As VMInputControl = vm.NewSelect("expense_category","Category",True,False,"","categories","id","text","","The category should be specified!",0).SetInt
+	Dim expense_type As VMInputControl = vm.NewSelect("expense_type","Type",True,False,"","types","id","text","","The type should be specified!",0).SetInt
+	Dim expense_amount As VMInputControl = vm.NewTel("expense_amount", "Amount", "", True, "", "","The amount should be specified!",0).SetDouble
+	Dim expense_description As VMInputControl = vm.NewTextArea("expense_description", "Description", "", False, False, "",100, "","",0)
 	'
 	mdlExpenses.Container.AddControl(expense_id, 1, 1, 0, 0, 0, 0, 12, 12, 12, 12)
 	mdlExpenses.Container.AddControl(expense_date, 2, 1, 0, 0, 0, 0, 12, 6, 6, 6)

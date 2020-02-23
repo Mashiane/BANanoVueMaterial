@@ -27,7 +27,10 @@ Sub Code(vmx As BANanoVM)
 	'add label to R1C1
 	cont.AddComponent(1,1, lbl.ToString)
 	'add button to r1c2
-	cont.AddComponent(1,2, btn.ToString)
+	Dim btnCode As String = btn.tostring
+	Log(btnCode)
+	
+	cont.AddComponent(1,2, btnCode)
 	
 	'add this container to the contents of the page
 	vm.AddHTML(cont.tostring)

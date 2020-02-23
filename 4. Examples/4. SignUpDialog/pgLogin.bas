@@ -35,9 +35,9 @@ Sub Code(vmx As BANanoVM)
 	'add a login button
 	mdlSignIn.AddOk("btnOkSignIn", "Sign In")
 	'create the controls
-	Dim txtEmail As VMInputControl = vm.Container.NewEmail("email","Email Address","",True,"email","Enter email address here", "The email address is required!",0)
-	Dim txtPassword As VMInputControl = vm.container.NewPassword("password","Password","",True,True,"lock",10,"Enter password here","The password is required!",0)
-	Dim chkRemember As VMInputControl = vm.Container.NewCheckBox("remember", "Remember Me", "1",True, -1)
+	Dim txtEmail As VMInputControl = vm.NewEmail("email","Email Address","",True,"email","Enter email address here", "The email address is required!",0)
+	Dim txtPassword As VMInputControl = vm.NewPassword("password","Password","",True,True,"lock",10,"Enter password here","The password is required!",0)
+	Dim chkRemember As VMInputControl = vm.NewCheckBox("remember", "Remember Me", "1","0", True, -1)
 	
 	'add the controls, the grid will be automatically created
 	mdlSignIn.Container.AddControl(txtEmail,1,1,0,0,0,0,12,12,12,12)

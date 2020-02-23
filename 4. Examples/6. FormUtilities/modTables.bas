@@ -37,21 +37,21 @@ Sub Code
 	cont.AddComponent(1,1, tables.tostring)
 	'dialog
 	Mode = "A"
-	mdlTable = vm.CreateDialog("mdlTable", Me).SetTitle("New Table").SetWidth("600px").SetModal
+	mdlTable = vm.CreateDialog("mdlTable", Me).SetTitle("New Table").SetWidth("600px").SetModal(True)
 	mdlTable.AddOK("btnCancelTable", "Cancel")
 	mdlTable.AddOK("btnSaveTable", "Save")
 	'
-	Dim txtTableName As VMInputControl = mdlTable.container.NewText("tablename", "Table Name", "", True, "", 20, "", "The table name is required", 0)
+	Dim txtTableName As VMInputControl = vm.NewText("tablename", "Table Name", "", True, "", 20, "", "The table name is required", 0)
 	mdlTable.container.AddControlS(txtTableName, 1, 1, 12, 12, 12, 12)
 	'
-	Dim txtPrimaryKey As VMInputControl = mdlTable.container.NewText("primarykey", "Primary Key", "", True, "", 20, "", "The primary key field is required", 0)
+	Dim txtPrimaryKey As VMInputControl = vm.NewText("primarykey", "Primary Key", "", True, "", 20, "", "The primary key field is required", 0)
 	mdlTable.container.AddControlS(txtPrimaryKey, 2, 1, 12, 12, 12, 12)
 	'
-	Dim chkAI As VMInputControl = mdlTable.container.NewCheckBox("autoincrement", "Auto Increment", "Yes", True, 0)
+	Dim chkAI As VMInputControl = vm.NewCheckBox("autoincrement", "Auto Increment", "Yes", "No", True, 0)
 	chkAI.SetString
 	mdlTable.container.AddControlS(chkAI, 3, 1, 12, 12, 12, 12)
 	'
-	Dim txtDescription As VMInputControl = mdlTable.container.NewTextArea("description", "Description", "", False, False, "", 100, "", "", 0)
+	Dim txtDescription As VMInputControl = vm.NewTextArea("description", "Description", "", False, False, "", 100, "", "", 0)
 	mdlTable.container.AddControlS(txtDescription, 4, 1, 12, 12, 12, 12)
 	
 	'add the dialog to the page

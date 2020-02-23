@@ -36,29 +36,29 @@ Sub Code(vmx As BANanoVM)
 	'add a login button
 	mdlRegister.AddOk("btnOkSignUp", "Sign In")
 	'create the controls
-	Dim txtfirstname As VMInputControl = vm.Container.NewText("firstname", "First Name", "First Name", True, "", 0, "", "The first name is required!", 0)
-	Dim txtlastname As VMInputControl = vm.Container.NewText("lastname", "Last Name", "Last Name", True, "", 0, "", "The last name is required!", 0)
+	Dim txtfirstname As VMInputControl = vm.NewText("firstname", "First Name", "First Name", True, "", 0, "", "The first name is required!", 0)
+	Dim txtlastname As VMInputControl = vm.NewText("lastname", "Last Name", "Last Name", True, "", 0, "", "The last name is required!", 0)
 	'
-	Dim dpDOB As VMInputControl = vm.Container.NewDatePicker("dateofbirth", "Date of Birth", True, True, True, "Date of Birth",0)
-	Dim tpTOB As VMInputControl = vm.Container.NewTimePicker("timeofbirth", "Time of Birth", True, True, "", "",0)
+	Dim dpDOB As VMInputControl = vm.NewDatePicker("dateofbirth", "Date of Birth", True, True, True, "Date of Birth","","",0)
+	Dim tpTOB As VMInputControl = vm.NewTimePicker("timeofbirth", "Time of Birth", True, True, "", "",0)
 	'
-	Dim txtTel As VMInputControl = vm.Container.NewTel("telephone", "Telephone", "Telephone Number", True, "", "", "",0)
-	Dim txtEmail As VMInputControl = vm.Container.NewEmail("email","Email Address","Email Address",True,"","", "The email address is required!",0)
+	Dim txtTel As VMInputControl = vm.NewTel("telephone", "Telephone", "Telephone Number", True, "", "", "",0)
+	Dim txtEmail As VMInputControl = vm.NewEmail("email","Email Address","Email Address",True,"","", "The email address is required!",0)
 	'
-	Dim radGender As VMInputControl = vm.Container.NewRadioGroup("gender", "Gender", "M", CreateMap("M":"Male","F":"Female"),0)
-	Dim chipSkills As VMInputControl = vm.Container.NewChips("skills", "Skills", "", False, False, "","", 0)
+	Dim radGender As VMInputControl = vm.NewRadioGroup("gender", "Gender", "M", CreateMap("M":"Male","F":"Female"),True, 0)
+	Dim chipSkills As VMInputControl = vm.NewChips("skills", "Skills", "", False, False, "","", 0)
 	'
-	Dim children As VMInputControl = vm.Container.NewNumber("children", "Total Children", "", False, "", "","", 0)
-	Dim notifications As VMInputControl = vm.Container.NewSwitch("notifications", "Receive Notifications", "true", True, 0)
+	Dim children As VMInputControl = vm.NewNumber("children", "Total Children", "", False, "", "","", 0)
+	Dim notifications As VMInputControl = vm.NewSwitch("notifications", "Receive Notifications", "true", "false",True, 0)
 	'
-	Dim profilepic As VMInputControl = vm.Container.NewImage("displaypic", "./assets/sponge.png", "SpongeBob","80px", "80px")
-	Dim uploadprofile As VMInputControl = vm.Container.NewFile("uploadpic", "Upload Profile Image", "", False, "", "", 0)
+	Dim profilepic As VMInputControl = vm.NewImage("displaypic", "./assets/sponge.png", "SpongeBob","80px", "80px")
+	Dim uploadprofile As VMInputControl = vm.NewFile("uploadpic", "Upload Profile Image", "", False, "", "", 0)
 	
-	Dim notes As VMInputControl = vm.Container.NewTextArea("notes", "Notes", "", True, True, "", 0,"", "Notes are required!", 0)
-	Dim agree As VMInputControl = vm.Container.NewCheckBox("agree", "I agree with terms of use", "true", True, 0)
+	Dim notes As VMInputControl = vm.NewTextArea("notes", "Notes", "", True, True, "", 0,"", "Notes are required!", 0)
+	Dim agree As VMInputControl = vm.NewCheckBox("agree", "I agree with terms of use", "true", "false", True, 0)
 	
-	Dim txtPassword As VMInputControl = vm.container.NewPassword("password","Password","",True,False,"",15,"", "The password is required!",0)
-	Dim txtconfirmPassword As VMInputControl = vm.container.NewPassword("confirmpassword","Confirm Password","",True,True,"",15,"", "The password is required!",0)
+	Dim txtPassword As VMInputControl = vm.NewPassword("password","Password","",True,False,"",15,"", "The password is required!",0)
+	Dim txtconfirmPassword As VMInputControl = vm.NewPassword("confirmpassword","Confirm Password","",True,True,"",15,"", "The password is required!",0)
 	
 	'add the controls, the grid will be automatically created
 	mdlRegister.Container.AddControl(profilepic,1,1,0,0,0,0,12,6,6,6)

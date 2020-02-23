@@ -42,10 +42,10 @@ Sub Code
 	mdlExpenseType.AddCancel("btnCancelExpenseType", "Cancel")
 	mdlExpenseType.AddOK("btnSaveExpenseType", "Save")
 	'
-	Dim etID As VMInputControl = mdlExpenseType.Container.NewText("id","#","",False,"",0,"","",0)
+	Dim etID As VMInputControl = vm.NewText("id","#","",False,"",0,"","",0)
 	etID.SetVisible(False).SetInt
-	Dim etText As VMInputControl = mdlExpenseType.Container.NewText("text","Name","",True,"",20,"","The expense type is required!",0)
-	Dim etDescription As VMInputControl = mdlExpenseType.Container.NewTextArea("description","Description","",False,False,"",100,"","",0)
+	Dim etText As VMInputControl = vm.NewText("text","Name","",True,"",20,"","The expense type is required!",0)
+	Dim etDescription As VMInputControl = vm.NewTextArea("description","Description","",False,False,"",100,"","",0)
 	
 	
 	mdlExpenseType.Container.AddControlS(etID, 1, 1, 12, 12, 12, 12)

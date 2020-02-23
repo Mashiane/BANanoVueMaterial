@@ -45,11 +45,11 @@ Sub Code
 	mdlExpenseCategory.AddCancel("btnCancelCategory", "Cancel")
 	mdlExpenseCategory.AddOK("btnSaveCategory", "Save")
 	'
-	Dim ecID As VMInputControl = mdlExpenseCategory.Container.NewText("id","#","",False,"",0,"","",0)
+	Dim ecID As VMInputControl = vm.NewText("id","#","",False,"",0,"","",0)
 	ecID.SetVisible(False).SetInt
-	Dim ecText As VMInputControl = mdlExpenseCategory.Container.NewText("text","Name","",True,"",20,"","The category name is required!",0)
-	Dim ecDescription As VMInputControl = mdlExpenseCategory.Container.NewTextArea("description","Description","",False,False,"",100,"","",0)
-	Dim ecBudget As VMInputControl = mdlExpenseCategory.Container.NewTel("budget","Monthly Budget","",True,"","","The monthly budget is required!",0)
+	Dim ecText As VMInputControl = vm.NewText("text","Name","",True,"",20,"","The category name is required!",0)
+	Dim ecDescription As VMInputControl = vm.NewTextArea("description","Description","",False,False,"",100,"","",0)
+	Dim ecBudget As VMInputControl = vm.NewTel("budget","Monthly Budget","",True,"","","The monthly budget is required!",0)
 	ecBudget.SetDouble
 	
 	mdlExpenseCategory.Container.AddControlS(ecID, 1, 1, 12, 12, 12, 12)
