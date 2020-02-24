@@ -89,10 +89,7 @@ Sub Application_Error (Error As Exception, StackTrace As String) As Boolean
 End Sub
 
 Sub BANano_Ready
-	'open the database, the db name cannot be a variable
-	db.OpenWait("alasql", "myapp")
-	'define SQL command builder to create the database
-	
+	'add code to open the database and create tables here
 	
 	pgIndex.Init
 End Sub

@@ -76,17 +76,30 @@ Sub Code
 	vm.SetMethod(Me, "ResetFiltersEmployees")
 End Sub
 
+Sub StartTour
+	Dim eh As VMEasyHint
+	eh.initialize
+	eh.AddStep("btnAddEmployees", "Click here to add an employee")
+	eh.AddStep("btnRefreshEmployees", "To refresh the list of employees, click here")
+	eh.AddGijgoTable("tblEmployees", "Your list of captured employees will be shown in this table. Here you can also click Edit or Delete to update and delete employees")
+	eh.AddStep("fltEmployees", "You can filter the columns to display on your table by using filters here")
+	eh.AddSelect("filterEmployees", "You can select multiple columns to display on the table here")
+	eh.AddStep("btnRstFltEmployees", "Clicking here will reset the column filters")
+	eh.AddStep("btnAplyFltEmployees", "Once columns are selected in the filter, you can click here to apply the filters")
+	eh.EndsOn("btnAplyFltEmployees")
+	eh.run
+End Sub
 
 'Initialize fields for this table
 Sub InitEmployees
 	EmployeesFields.Initialize
-	EmployeesFields.Put("fullname", "Name")
+	EmployeesFields.Put("fullname", "Full Name")
 	EmployeesFields.Put("profilepic", "Image")
-	EmployeesFields.Put("email", "Email")
+	EmployeesFields.Put("email", "Email Address")
 	EmployeesFields.Put("status", "Status")
 	EmployeesFields.Put("position", "Position")
 	EmployeesFields.Put("role", "Role")
-	EmployeesFields.Put("vacationdays", "Starting Vacation Days")
+	EmployeesFields.Put("vacationdays", "Vacation Days Allocated")
 End Sub
 
 
@@ -107,14 +120,14 @@ Sub RefreshEmployees
 	tblEmployees.Reset
 	'a filter has been set
 	tblEmployees.SetFilters("filterEmployees")
-	tblEmployees.AddColumn("fullname", "Name")
+	tblEmployees.AddColumn("fullname", "Full Name")
 	tblEmployees.AddColumn("profilepic", "Image")
 	tblEmployees.SetColumnType("profilepic", "image")
-	tblEmployees.AddColumn("email", "Email")
+	tblEmployees.AddColumn("email", "Email Address")
 	tblEmployees.AddColumn("status", "Status")
 	tblEmployees.AddColumn("position", "Position")
 	tblEmployees.AddColumn("role", "Role")
-	tblEmployees.AddColumn("vacationdays", "Starting Vacation Days")
+	tblEmployees.AddColumn("vacationdays", "Vacation Days Allocated")
 	tblEmployees.SetColumnAlignment("vacationdays", "right")
 
 	tblEmployees.AddEdit
@@ -155,6 +168,7 @@ End Sub
 Sub HideEmployeesButtons
 	vm.Hide("btnAddEmployees")
 	vm.Hide("btnRefreshEmployees")
+	vm.Hide("btnTour")
 End Sub
 
 
@@ -162,6 +176,7 @@ End Sub
 Sub ShowEmployeesButtons
 	vm.Show("btnAddEmployees")
 	vm.Show("btnRefreshEmployees")
+	vm.Show("btnTour")
 End Sub
 
 

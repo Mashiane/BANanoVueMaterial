@@ -59,6 +59,7 @@ End Sub
 Sub btnAddTable_click(e As BANanoEvent)
 	modTables.mode = "A"
 	modTables.mdlTable.Container.setdefaults
+	modTables.mdlTable.SetTitle("Add Table")
 	vm.showdialog("mdlTable")
 End Sub
 

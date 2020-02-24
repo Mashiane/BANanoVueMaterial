@@ -32,6 +32,7 @@ Sub Init
 	'show the hamburger button
 	vm.NavBar.SetHasMenuButton(True)
 	'
+	vm.NavBar.AddIcon("btnTour","help", "Start tour", "")
 	vm.NavBar.AddIcon("btnAddEmployees","add", "Add Employee", "")
 	vm.NavBar.AddIcon("btnRefreshEmployees","refresh", "Refresh Employees", "")
 	'build the drawer buttons
@@ -42,8 +43,12 @@ Sub Init
 	vm.ux
 	'start on this page
 	modEmployees.ShowEmployees
+	
 End Sub
 
+Sub btnTour_click(e As BANanoEvent)
+	modEmployees.StartTour
+End Sub
 
 Sub BuildDrawer
 	vm.Drawer.AddItem("pageEmployees", "", "Employees")

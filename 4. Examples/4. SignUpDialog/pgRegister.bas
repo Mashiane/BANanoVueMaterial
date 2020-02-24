@@ -45,7 +45,7 @@ Sub Code(vmx As BANanoVM)
 	Dim txtTel As VMInputControl = vm.NewTel("telephone", "Telephone", "Telephone Number", True, "", "", "",0)
 	Dim txtEmail As VMInputControl = vm.NewEmail("email","Email Address","Email Address",True,"","", "The email address is required!",0)
 	'
-	Dim radGender As VMInputControl = vm.NewRadioGroup("gender", "Gender", "M", CreateMap("M":"Male","F":"Female"),True, 0)
+	Dim radGender As VMInputControl = vm.NewRadioGroup("gender", "Gender", "M", CreateMap("M":"Male","F":"Female"),True,True, 0)
 	Dim chipSkills As VMInputControl = vm.NewChips("skills", "Skills", "", False, False, "","", 0)
 	'
 	Dim children As VMInputControl = vm.NewNumber("children", "Total Children", "", False, "", "","", 0)

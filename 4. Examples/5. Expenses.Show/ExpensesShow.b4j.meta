@@ -19,6 +19,6 @@ ModuleClosedNodes3=
 ModuleClosedNodes4=
 ModuleClosedNodes5=
 ModuleClosedNodes6=
-NavigationStack=modDashboard,Refresh,288,6,modExpenseCategories,Code,39,0,modExpenses,Code,53,1,modExpenseTypes,Code,45,0,pgIndex,Init,15,0,pgIndex,HideButtons,80,0,pgIndex,AddPages,96,0,modDashboard,AddExpense,117,0,modDashboard,Process_Globals,10,0,modDashboard,Code,56,0
+NavigationStack=modDashboard,Refresh,288,6,modExpenseCategories,Code,39,0,modExpenseTypes,Code,45,0,pgIndex,Init,15,0,pgIndex,HideButtons,80,0,pgIndex,AddPages,96,0,modDashboard,AddExpense,117,0,modDashboard,Process_Globals,10,0,modDashboard,Code,56,0,modExpenses,Code,56,1,modExpenses,btnSaveExpense_click,92,0
 SelectedBuild=0
 VisibleModules=5,1,6,2,3,4
