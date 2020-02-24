@@ -31,32 +31,64 @@ Sub Init
 	vm.NavBar.SetHasBackButton(False)
 	'show the hamburger button
 	vm.NavBar.SetHasMenuButton(True)
+	'
+	vm.NavBar.AddIcon("btnAddEmployees","add", "Add Employee", "")
+	vm.NavBar.AddIcon("btnRefreshEmployees","refresh", "Refresh Employees", "")
 	'build the drawer buttons
 	BuildDrawer
 	'add the pages to the app
 	AddPages
 	'build the page
 	vm.ux
+	'start on this page
+	modEmployees.ShowEmployees
 End Sub
 
 
 Sub BuildDrawer
-	vm.Drawer.AddItem("settings","gear","Settings")
-	vm.drawer.AddSubItem("settings", "users", "person_outline", "Users")
+	vm.Drawer.AddItem("pageEmployees", "", "Employees")
 End Sub
 
 'add different 'pages' you have created add them here
 'these should be code modules
 Sub AddPages
-	vm.AddPage(modUsers.name, modUsers)
-End Sub
-
-'drawer item has been clicked
-Sub users_click(e As BANanoEvent)
-	vm.NavBar.SetTitle("Users")
-	vm.ShowPage(modUsers.name)
+	vm.AddPage(modEmployees.name, modEmployees)
 End Sub
 
 Sub back_click(e As BANanoEvent)
 
+End Sub
+
+Sub confirm_ok(e As BANanoEvent)
+	Dim sconfirm As String = vm.GetConfirm
+	Select Case sconfirm
+	Case "delete_employees"
+		modEmployees.DeleteEmployees
+	End Select
+End Sub
+
+Sub confirm_cancel(e As BANanoEvent)
+	
+End Sub
+
+'***** Add this to [pgIndex]
+'show Employees via drawer click
+Sub pageEmployees_click(e As BANanoEvent)
+	'show the Employees page
+	modEmployees.ShowEmployees
+End Sub
+
+'add a new Employees record
+Sub btnAddEmployees_click(e As BANanoEvent)
+	'execute adding code for Employees
+	modEmployees.AddEmployees
+End Sub
+
+
+'refresh Employees listing
+Sub btnRefreshEmployees_click(e As BANanoEvent)
+	'reset the filters
+	vm.CallMethod("ResetFiltersEmployees")
+	'execute code to refresh listing for Employees
+	vm.CallMethod("RefreshEmployees")
 End Sub

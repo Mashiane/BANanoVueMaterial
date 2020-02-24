@@ -41,22 +41,25 @@ End Sub
 
 
 Sub BuildDrawer
-	vm.Drawer.AddItem("settings","gear","Settings")
-	vm.drawer.AddSubItem("settings", "users", "person_outline", "Users")
 End Sub
 
 'add different 'pages' you have created add them here
 'these should be code modules
 Sub AddPages
-	vm.AddPage(modUsers.name, modUsers)
-End Sub
-
-'drawer item has been clicked
-Sub users_click(e As BANanoEvent)
-	vm.NavBar.SetTitle("Users")
-	vm.ShowPage(modUsers.name)
 End Sub
 
 Sub back_click(e As BANanoEvent)
 
 End Sub
+
+Sub confirm_ok(e As BANanoEvent)
+	Dim sconfirm As String = vm.GetConfirm
+	Select Case sconfirm
+	'***add code here***	
+	End Select
+End Sub
+
+Sub confirm_cancel(e As BANanoEvent)
+	
+End Sub
+

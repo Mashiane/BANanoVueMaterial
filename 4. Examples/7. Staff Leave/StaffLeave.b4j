@@ -1,23 +1,25 @@
 ﻿AppType=JavaFX
 Build1=Default,b4j.example
-File1=config.php
-File2=dbase.txt
-File3=host.txt
-File4=sponge.png
+File1=alasql.min.js
+File2=config.php
+File3=dbase.txt
+File4=host.txt
+File5=sponge.png
 FileGroup1=Default Group
 FileGroup2=Default Group
 FileGroup3=Default Group
 FileGroup4=Default Group
+FileGroup5=Default Group
 Group=Default Group
 Library1=jcore
 Library2=jfx
 Library3=banano
 Library4=bananopostprocessor
 Library5=bananovuematerial
-Module1=modSkeleton
-Module2=modUsers
+Module1=modEmployees
+Module2=modSkeleton
 Module3=pgIndex
-NumberOfFiles=4
+NumberOfFiles=5
 NumberOfLibraries=5
 NumberOfModules=3
 Version=8.1
@@ -31,12 +33,12 @@ Version=8.1
 Sub Process_Globals
 	Public BANano As BANano 'ignore'
 	'folder the app will be running from
-	Public AppName As String = "bvmtemplate"
+	Public AppName As String = "staffleave"
 	'title of the app users will see
-	Public AppTitle As String = "MyApp"
+	Public AppTitle As String = "Staff Leave"
 	'the logo image of the app
 	Public AppLogo As String = "./assets/sponge.png"
-	Public Dbase As String
+	Private db As BANanoSQL
 	Private Publish As String
 	Private BP As BANanoPostProcessor
 	Public ServerIP As String
@@ -88,5 +90,24 @@ Sub Application_Error (Error As Exception, StackTrace As String) As Boolean
 End Sub
 
 Sub BANano_Ready
+	'open the database, the db name cannot be a variable
+	db.OpenWait("alasql", "staffleave")
+	'define SQL command builder to create the database
+	'Code to create a table for: Employees
+	Dim tblEmployees As BANanoAlaSQL
+	tblEmployees.Initialize
+	tblEmployees.SchemaAddField("id", "INT")
+	tblEmployees.SchemaAddField("fullname", "TEXT")
+	tblEmployees.SchemaAddField("profilepic", "TEXT")
+	tblEmployees.SchemaAddField("email", "TEXT")
+	tblEmployees.SchemaAddField("status", "TEXT")
+	tblEmployees.SchemaAddField("position", "TEXT")
+	tblEmployees.SchemaAddField("role", "TEXT")
+	tblEmployees.SchemaAddField("vacationdays", "INT")
+	'build the SQL Command
+	Dim rsEmployees As AlaSQLResultSet = tblEmployees.SchemaCreateTable("employees", "id")
+	'execute the code to create the table
+	db.ExecuteWait(rsEmployees.query, rsEmployees.args)
+
 	pgIndex.Init
 End Sub

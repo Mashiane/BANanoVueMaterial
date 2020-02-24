@@ -1,13 +1,15 @@
 ﻿AppType=JavaFX
 Build1=Default,b4j.example
-File1=config.php
-File2=dbase.txt
-File3=host.txt
-File4=sponge.png
+File1=alasql.min.js
+File2=config.php
+File3=dbase.txt
+File4=host.txt
+File5=sponge.png
 FileGroup1=Default Group
 FileGroup2=Default Group
 FileGroup3=Default Group
 FileGroup4=Default Group
+FileGroup5=Default Group
 Group=Default Group
 Library1=jcore
 Library2=jfx
@@ -15,11 +17,10 @@ Library3=banano
 Library4=bananopostprocessor
 Library5=bananovuematerial
 Module1=modSkeleton
-Module2=modUsers
-Module3=pgIndex
-NumberOfFiles=4
+Module2=pgIndex
+NumberOfFiles=5
 NumberOfLibraries=5
-NumberOfModules=3
+NumberOfModules=2
 Version=8.1
 @EndOfDesignText@
 #Region Project Attributes 
@@ -36,7 +37,7 @@ Sub Process_Globals
 	Public AppTitle As String = "MyApp"
 	'the logo image of the app
 	Public AppLogo As String = "./assets/sponge.png"
-	Public Dbase As String
+	Private db As BANanoSQL
 	Private Publish As String
 	Private BP As BANanoPostProcessor
 	Public ServerIP As String
@@ -88,5 +89,10 @@ Sub Application_Error (Error As Exception, StackTrace As String) As Boolean
 End Sub
 
 Sub BANano_Ready
+	'open the database, the db name cannot be a variable
+	db.OpenWait("alasql", "myapp")
+	'define SQL command builder to create the database
+	
+	
 	pgIndex.Init
 End Sub
