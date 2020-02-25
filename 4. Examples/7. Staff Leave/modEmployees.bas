@@ -71,24 +71,15 @@ Sub Code
 	vm.AddContainer(cont)
 
 
+	'create the dialog for Employees and add it to the page
+	DialogEmployees
+
+
 	'include the method in the global scope
 	vm.SetMethod(Me, "RefreshEmployees")
 	vm.SetMethod(Me, "ResetFiltersEmployees")
 End Sub
 
-Sub StartTour
-	Dim eh As VMEasyHint
-	eh.initialize
-	eh.AddStep("btnAddEmployees", "Click here to add an employee")
-	eh.AddStep("btnRefreshEmployees", "To refresh the list of employees, click here")
-	eh.AddGijgoTable("tblEmployees", "Your list of captured employees will be shown in this table. Here you can also click Edit or Delete to update and delete employees")
-	eh.AddStep("fltEmployees", "You can filter the columns to display on your table by using filters here")
-	eh.AddSelect("filterEmployees", "You can select multiple columns to display on the table here")
-	eh.AddStep("btnRstFltEmployees", "Clicking here will reset the column filters")
-	eh.AddStep("btnAplyFltEmployees", "Once columns are selected in the filter, you can click here to apply the filters")
-	eh.EndsOn("btnAplyFltEmployees")
-	eh.run
-End Sub
 
 'Initialize fields for this table
 Sub InitEmployees
@@ -141,7 +132,7 @@ Sub RefreshEmployees
 End Sub
 
 'a filter is being reset
-Sub btnRstFltEmployees_click(e As BANanoEvent)
+Sub btnRstFltEmployees_click(e as BANanoEvent)
 	'Reset the filters
 	vm.CallMethod("ResetFiltersEmployees")
 	'refresh the table contents
@@ -159,7 +150,7 @@ End Sub
 
 
 'a filter is being applied
-Sub btnAplyFltEmployees_click(e As BANanoEvent)
+Sub btnAplyFltEmployees_click(e as BANanoEvent)
 	vm.CallMethod("RefreshEmployees")
 End Sub
 
@@ -168,7 +159,6 @@ End Sub
 Sub HideEmployeesButtons
 	vm.Hide("btnAddEmployees")
 	vm.Hide("btnRefreshEmployees")
-	vm.Hide("btnTour")
 End Sub
 
 
@@ -176,7 +166,6 @@ End Sub
 Sub ShowEmployeesButtons
 	vm.Show("btnAddEmployees")
 	vm.Show("btnRefreshEmployees")
-	vm.Show("btnTour")
 End Sub
 
 
@@ -209,6 +198,14 @@ Sub SaveEmployees
 	alaSQL.Initialize
 	Select Case Mode
 		Case "A"
+			'we have an auto increment field, lets calculate it
+			Dim rsMax As AlaSQLResultSet = alaSQL.GetMax("employees", "id")
+			'execute the code to get the maximum value stored!
+			rsMax.Result = db.ExecuteWait(rsMax.query, rsMax.args)
+			'get the next value
+			dim nextEmployee As String = alaSQL.GetNextID("id", rsMax.Result)
+			'update the record to save!
+			recEmployee.put("id", nextEmployee)
 			'a new Employee is being added
 			Dim rsInsert As AlaSQLResultSet = alaSQL.Insert("employees", recEmployee)
 			'execute the SQL command
@@ -223,6 +220,8 @@ Sub SaveEmployees
 	End Select
 	'hide the modal for entry
 	vm.HideDialog("diagEmployees")
+	'Reset the filters
+	vm.CallMethod("ResetFiltersEmployees")
 	'refresh the Employees listing
 	vm.CallMethod("RefreshEmployees")
 End Sub
@@ -298,5 +297,105 @@ Sub DeleteEmployees
 	'refresh the table listing
 	vm.CallMethod("RefreshEmployees")
 End Sub
+
+
+'create the modal for data entry
+Sub DialogEmployees
+	'initialize the modal
+	diagEmployees = vm.CreateDialog("diagEmployees", Me)
+	'set the title for the page
+	diagEmployees.SetTitle("Employees")
+	'the dialog should be in full screen
+	diagEmployees.SetMaximize(True)
+	'the dialog should be modal only closable on button click
+	diagEmployees.SetModal(True)
+	'the dialog should have a scroll when necessary
+	diagEmployees.SetScrollBar(True)
+	'the dialog should show a backdop
+	diagEmployees.SetBackdrop(True)
+	'set the width of the dialog
+	diagEmployees.SetWidth("900px")
+	'set the height of the dialog
+	diagEmployees.SetHeight("700px")
+
+
+	'add the cancel button
+	diagEmployees.AddCancel("btnCancelEmployees", "Cancel")
+	'add the ok button
+	diagEmployees.AddOK("btnSaveEmployees", "Save")
+	'add the input controls
+	'defining #
+	Dim inpid As VMInputControl = vm.NewText("id", "#", "", false, "", 20, "", "",0)
+	inpid.SetVisible(false).SetPosition("1", "1","12","12","12", "12")
+	diagEmployees.Container.AddControlOnly(inpid)
+
+
+	'defining Full Name
+	Dim inpfullname As VMInputControl = vm.NewText("fullname", "Full Name", "", true, "", 100, "", "",0)
+	inpfullname.SetVisible(true).SetPosition("2", "1","12","6","6", "6")
+	diagEmployees.Container.AddControlOnly(inpfullname)
+
+
+	'defining Image
+	Dim inpprofilepic As VMInputControl = vm.NewImage("profilepic", "", "profilepic", "100px", "100px")
+	inpprofilepic.SetVisible(true).SetPosition("2", "2","12","6","6", "6")
+	diagEmployees.Container.AddControlOnly(inpprofilepic)
+
+
+	'defining Email Address
+	Dim inpemail As VMInputControl = vm.NewEmail("email", "Email Address", "", true, "", "", "", 0)
+	inpemail.SetVisible(true).SetPosition("3", "1","12","6","6", "6")
+	diagEmployees.Container.AddControlOnly(inpemail)
+
+
+	'defining Status
+	Dim optmstatus As Map = vm.GetOptionsFromKV(",", "active,inactive,notconfirmed", "Active,In-Active,Not Confirmed")
+	Dim inpstatus As VMInputControl = vm.NewSelectOptions("status", "Status", true, False, "", optmstatus, "id", "text", "", "",0)
+	inpstatus.SetVisible(true).SetPosition("3", "2","12","6","6", "6")
+	diagEmployees.Container.AddControlOnly(inpstatus)
+
+
+	'defining Position
+	Dim inpposition As VMInputControl = vm.NewText("position", "Position", "", true, "", 100, "", "",0)
+	inpposition.SetVisible(True).SetPosition("4", "1","12","6","6", "6")
+	diagEmployees.Container.AddControlOnly(inpposition)
+
+
+	'defining Role
+	Dim optmrole As Map = vm.GetOptionsFromKV(",", "staff,hr,guest", "Staff,HR,Guest")
+	Dim inprole As VMInputControl = vm.NewSelectOptions("role", "Role", True, False, "", optmrole, "id", "text", "", "",0)
+	inprole.SetVisible(True).SetPosition("4", "2","12","6","6", "6")
+	diagEmployees.Container.AddControlOnly(inprole)
+
+
+	'defining Vacation Days Allocated
+	Dim inpvacationdays As VMInputControl = vm.NewNumber("vacationdays", "Vacation Days Allocated", "", True, "", "", "", 0)
+	inpvacationdays.SetVisible(True).SetPosition("5", "1","12","6","6", "6")
+	diagEmployees.Container.AddControlOnly(inpvacationdays)
+
+
+	'defining Upload Image
+	Dim inpuploadpic As VMInputControl = vm.NewFile("uploadpic", "Upload Image", "", False, "", "", 0)
+	inpuploadpic.SetVisible(True).SetPosition("5", "2","12","6","6", "6")
+	diagEmployees.Container.AddControlOnly(inpuploadpic)
+
+
+	'add the dialog to the page
+	vm.AddDialog(diagEmployees)
+End Sub
+
+
+'save the employee
+Sub btnSaveEmployees_click(e As BANanoEvent)
+	SaveEmployees
+End Sub
+
+
+'cancel the dialog
+Sub btnCancelEmployees_click(e As BANanoEvent)
+	'hide the modal
+	vm.HideDialog("diagEmployees")
+End Sub
+
 
 

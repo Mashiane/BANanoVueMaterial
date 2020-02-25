@@ -46,9 +46,6 @@ Sub Init
 	
 End Sub
 
-Sub btnTour_click(e As BANanoEvent)
-	modEmployees.StartTour
-End Sub
 
 Sub BuildDrawer
 	vm.Drawer.AddItem("pageEmployees", "", "Employees")
