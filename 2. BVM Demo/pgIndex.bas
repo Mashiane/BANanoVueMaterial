@@ -7,7 +7,7 @@ Version=8.1
 'Static code module
 Sub Process_Globals
 	Private BANano As BANano  'ignore
-	Private vm As BANanoVM
+	Public vm As BANanoVM
 End Sub
 
 Sub Init
@@ -69,7 +69,7 @@ Sub Init
 	vm.AddPage(modInfoBox.name, modInfoBox)
 	vm.AddPage(modDevice.name, modDevice)
 	vm.AddPage(modRangeSlider.name, modRangeSlider)
-		
+	vm.AddPage(modCalculations.name, modCalculations)	
 	'build the page
 	vm.ux
 	'
@@ -104,8 +104,9 @@ Sub BuildDrawer
 	'
 	'vm.Drawer.AddItem("listx","","List")
 	'vm.drawer.AddSubItem("listx", "controls", "","Controls")
-	
-
+	vm.Drawer.AddItem("stuff","","Concepts")
+	vm.drawer.AddSubItem("stuff", "watches", "","Using Watches")
+	'
 	vm.Drawer.AddItem("forms","video_library","Forms")
 	vm.drawer.AddSubItem("forms", "datepicker", "date_range","DatePicker")
 	vm.drawer.AddSubItem("forms", "timepicker", "","TimePicker")
@@ -125,6 +126,11 @@ Sub BuildDrawer
 	vm.drawer.AddSubItem("plugins", "infobox", "","InfoBox")
 	vm.drawer.AddSubItem("plugins", "device", "","Device")
 	vm.drawer.AddSubItem("plugins", "rangeslider", "","RangeSlider")
+End Sub
+
+Sub watches_click(e As BANanoEvent)
+	vm.NavBar.UpdateTitle("BVMDemo - Using Watches")
+	vm.ShowPage(modCalculations.name)
 End Sub
 
 Sub rangeslider_click(e As BANanoEvent)

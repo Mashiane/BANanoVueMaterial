@@ -12,7 +12,6 @@ End Sub
 
 
 Sub Code(vmx As BANanoVM)
-	Log("modBadge.Code")
 	vm = vmx
 	'create a container to hold all contents
 	Dim cont As VMContainer = vm.CreateContainer(name,Me)

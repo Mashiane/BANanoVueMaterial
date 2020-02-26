@@ -14,48 +14,12 @@ Library2=jfx
 Library3=banano
 Library4=bananopostprocessor
 Library5=bananovuematerial
-Module1=modAutoComplete
-Module10=modDatePicker
-Module11=modDevice
-Module12=modDialog
-Module13=modEmptyState
-Module14=modFile
-Module15=modGijgoTable
-Module16=modGMap
-Module17=modIcon
-Module18=modInfoBox
-Module19=modList
-Module2=modAvatar
-Module20=modListView
-Module21=modMenu
-Module22=modProgress
-Module23=modRadio
-Module24=modRangeSlider
-Module25=modSelect
-Module26=modSkeleton
-Module27=modSnackBar
-Module28=modSpeedDial
-Module29=modSpinner
-Module3=modBadge
-Module30=modSteppers
-Module31=modSwitch
-Module32=modTable
-Module33=modTabs
-Module34=modTextArea
-Module35=modTextBox
-Module36=modTimePIcker
-Module37=modToolbar
-Module38=modTypography
-Module39=pgIndex
-Module4=modBottomBar
-Module5=modButtons
-Module6=modCalculations
-Module7=modChartKick
-Module8=modCheckBox
-Module9=modChips
+Module1=modCalculations
+Module2=modSkeleton
+Module3=pgIndex
 NumberOfFiles=4
 NumberOfLibraries=5
-NumberOfModules=39
+NumberOfModules=3
 Version=8.1
 @EndOfDesignText@
 #Region Project Attributes 
@@ -65,9 +29,13 @@ Version=8.1
 #End Region
 
 Sub Process_Globals
-	Public BANano As BANano 'ignore
-	Public AppName As String = "bvmdemo"
-	Public Dbase As String
+	Public BANano As BANano 'ignore'
+	'folder the app will be running from
+	Public AppName As String = "bvmcalculations"
+	'title of the app users will see
+	Public AppTitle As String = "Calculations"
+	'the logo image of the app
+	Public AppLogo As String = "./assets/sponge.png"
 	Private Publish As String
 	Private BP As BANanoPostProcessor
 	Public ServerIP As String
@@ -78,8 +46,8 @@ Sub AppStart (Form1 As Form, Args() As String)
 	BP.Initialize
 	BP.RedirectOutput(File.DirApp,"log.txt")
 	Publish = "C:\laragon\www"
-	ServerIP = BP.FileReadString(File.DirAssets, "host.txt")
-	Dbase = BP.FileReadString(File.DirAssets, "dbase.txt")
+	'ServerIP = BP.FileReadString(File.DirAssets, "host.txt")
+	'Dbase = BP.FileReadString(File.DirAssets, "dbase.txt")
 	'
 	Dim Version As Long = DateTime.now
 	Dim appFile As String = $"app${Version}.js"$
@@ -95,9 +63,9 @@ Sub AppStart (Form1 As Form, Args() As String)
 	'
 	'php
 	'set php settings
-	BANano.PHP_NAME = $"${AppName}.php"$
-	BANano.PHPHost = $"http://${ServerIP}/${AppName}/"$
-	BANano.PHPAddHeader("Access-Control-Allow-Origin: *")
+	'BANano.PHP_NAME = $"${AppName}.php"$
+	'BANano.PHPHost = $"http://${ServerIP}/${AppName}/"$
+	'BANano.PHPAddHeader("Access-Control-Allow-Origin: *")
 	
 	BANano.Build(Publish)
 	BP.OpenLog(File.DirApp, "log.txt")
@@ -119,5 +87,7 @@ Sub Application_Error (Error As Exception, StackTrace As String) As Boolean
 End Sub
 
 Sub BANano_Ready
+	'add code to open the database and create tables here
+	
 	pgIndex.Init
 End Sub
