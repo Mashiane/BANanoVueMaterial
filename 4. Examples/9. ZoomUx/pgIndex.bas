@@ -22,7 +22,7 @@ Sub Init
 	'the drawer should be persistent
 	vm.Drawer.SetPersistentFull(True)
 	'the navbar will be visible
-	vm.NavBar.Show
+	vm.NavBar.Hide
 	'set primary color for the navbar
 	vm.NavBar.SetPrimary(True)
 	'fix the navbar so that it does not move
@@ -30,13 +30,15 @@ Sub Init
 	'hide the back button
 	vm.NavBar.SetHasBackButton(False)
 	'show the hamburger button
-	vm.NavBar.SetHasMenuButton(True)
+	vm.NavBar.SetHasMenuButton(False)
 	'build the drawer buttons
 	BuildDrawer
 	'add the pages to the app
 	AddPages
 	'build the page
 	vm.ux
+	'show the calculations page
+	vm.showpage(modZoom.Name)
 End Sub
 
 
@@ -46,6 +48,7 @@ End Sub
 'add different 'pages' you have created add them here
 'these should be code modules
 Sub AddPages
+	vm.AddPage(modZoom.Name, modZoom)
 End Sub
 
 Sub back_click(e As BANanoEvent)
@@ -63,11 +66,3 @@ Sub confirm_cancel(e As BANanoEvent)
 	
 End Sub
 
-
-Sub prompt_ok(e As BANanoEvent)
-	
-End Sub
-
-Sub prompt_cancel(e As BANanoEvent)
-	
-End Sub

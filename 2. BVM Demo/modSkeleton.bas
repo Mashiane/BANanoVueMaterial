@@ -8,6 +8,7 @@ Version=8.1
 Sub Process_Globals
 	Private vm As BANanoVM
 	Public name As String = "skeletoncode"
+	Public title As String = "Skeleton"
 End Sub
 
 

@@ -15,6 +15,11 @@ Sub Init
 	vm.Initialize(Me, Main.appname)
 	'update the nav bar title
 	vm.NavBar.UpdateLogo("./assets/sponge.png")
+	'concepts
+	vm.NavBar.SetLogoRound("20px")
+	vm.NavBar.SetLogoBorder("1px", "red", vm.Vue.BORDER_RIDGE)
+	vm.navBar.SetLogoStyle("width","42px")
+	vm.navBar.SetLogoStyle("height","42px")
 	vm.NavBar.SetTitle("BVMDemo - created by TheMash")
 	vm.Drawer.SetTitle("BDMDemo")
 	vm.Drawer.SetPersistentFull(True)
@@ -69,16 +74,18 @@ Sub Init
 	vm.AddPage(modInfoBox.name, modInfoBox)
 	vm.AddPage(modDevice.name, modDevice)
 	vm.AddPage(modRangeSlider.name, modRangeSlider)
-	vm.AddPage(modCalculations.name, modCalculations)	
+	vm.AddPage(modCalculations.name, modCalculations)
+	'vm.addpage(modZCircle.name, modZCircle)	
 	'build the page
 	vm.ux
 	'
-	'Log(vm.GetTemplate)
-	'Log(vm.data)
-	
+	'vm.SetMounted(Me, "openzircle")
+	'
 End Sub
-
-
+'
+'Sub OpenZCircle
+'	vm.ZCircleSetView("foo")
+'End Sub
 
 Sub BuildDrawer
 	vm.Drawer.AddItem("ui","whatshot","UI Elements")
@@ -126,6 +133,14 @@ Sub BuildDrawer
 	vm.drawer.AddSubItem("plugins", "infobox", "","InfoBox")
 	vm.drawer.AddSubItem("plugins", "device", "","Device")
 	vm.drawer.AddSubItem("plugins", "rangeslider", "","RangeSlider")
+	'vm.drawer.AddSubItem("plugins", "zircle", "","Zircle")
+End Sub
+
+
+Sub zircle_click(e As BANanoEvent)
+	vm.NavBar.UpdateTitle("BVMDemo - Zircle")
+	vm.ShowPage(modZCircle.name)
+	
 End Sub
 
 Sub watches_click(e As BANanoEvent)
@@ -317,11 +332,6 @@ Sub chip_click(e As BANanoEvent)
 	vm.ShowPage(modChips.name)
 End Sub
 
-Sub back_click(e As BANanoEvent)
-	'vm.Drawer.Toggle
-	'vm.NavBar.ToggleMenu
-End Sub
-
 Sub confirm_ok(e As BANanoEvent)
 	Dim sprocess As String = vm.getconfirm
 	Select Case sprocess
@@ -329,4 +339,16 @@ Sub confirm_ok(e As BANanoEvent)
 		Dim pid As String = vm.getstate("peopleid","")
 		vm.ShowSnackBar("Person to delete id: " & pid)		
 	End Select
+End Sub
+
+Sub confirm_cancel(e As BANanoEvent)
+	
+End Sub
+
+Sub prompt_ok(e As BANanoEvent)
+	
+End Sub
+
+Sub prompt_cancel(e As BANanoEvent)
+	
 End Sub
